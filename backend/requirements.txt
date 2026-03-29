@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+supabase
+python-dotenv
+httpx
+pydantic
+pydantic-settings
+resend
+sendgrid
+python-multipart
+jose
+passlib
+bcrypt
