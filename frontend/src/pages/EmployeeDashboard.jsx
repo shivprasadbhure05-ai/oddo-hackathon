@@ -66,8 +66,7 @@ export default function EmployeeDashboard() {
   const [approvals, setApprovals] = useState([])
   const [form, setForm] = useState({
     description: '', category: 'Food', amount: '',
-    currency: 'INR', paid_by: '', remarks: '', expense_date: new Date().toISOString().split('T')[0],
-    receiptFile: null
+    currency: 'INR', paid_by: '', remarks: '', expense_date: new Date().toISOString().split('T')[0]
   })
 
   const fetchExpenses = useCallback(async () => {
@@ -90,7 +89,7 @@ export default function EmployeeDashboard() {
   }, [fetchExpenses])
 
   const resetForm = () => {
-    setForm({ description: '', category: 'Food', amount: '', currency: 'INR', paid_by: '', remarks: '', expense_date: new Date().toISOString().split('T')[0], receiptFile: null })
+    setForm({ description: '', category: 'Food', amount: '', currency: 'INR', paid_by: '', remarks: '', expense_date: new Date().toISOString().split('T')[0] })
     setEditingId(null)
   }
 
@@ -115,26 +114,11 @@ export default function EmployeeDashboard() {
     try {
       const header = await getAuthHeader()
       const payload = { ...form, amount: parseFloat(form.amount) }
-      // Do not send the raw file in JSON payload
-      delete payload.receiptFile
-
-      let expenseId = editingId
       if (editingId) {
         await api.patch(`/api/expenses/${editingId}`, payload, { headers: { Authorization: header } })
       } else {
-        const resp = await api.post('/api/expenses/', payload, { headers: { Authorization: header } })
-        expenseId = resp.data?.id
+        await api.post('/api/expenses/', payload, { headers: { Authorization: header } })
       }
-
-      // If there is a receipt file from OCR or manual attach, upload it now
-      if (form.receiptFile && expenseId) {
-        const fd = new FormData()
-        fd.append('file', form.receiptFile)
-        await api.post(`/api/expenses/${expenseId}/upload-receipt`, fd, {
-          headers: { Authorization: header, 'Content-Type': 'multipart/form-data' }
-        })
-      }
-
       toast.success('Saved as draft!', { id: toastId })
       setShowForm(false); resetForm(); fetchExpenses()
     } catch (e) {
@@ -300,7 +284,7 @@ export default function EmployeeDashboard() {
                     headers: { Authorization: header, 'Content-Type': 'multipart/form-data' }
                   });
                   
-                  const { amount, date, category, description, remarks } = res.data;
+                  const { amount, date, category, description } = res.data;
                   
                   setForm({
                     ...form,
@@ -308,7 +292,6 @@ export default function EmployeeDashboard() {
                     category: category || 'Miscellaneous',
                     amount: amount || '',
                     expense_date: date || new Date().toISOString().split('T')[0],
-                    remarks: (remarks || (category === 'Food' ? 'All food items' : form.remarks || '')) || '',
                     receiptFile: file // Store the file so it uploads if they submit
                   });
                   setShowForm(true);
