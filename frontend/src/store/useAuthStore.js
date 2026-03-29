@@ -36,11 +36,20 @@ export const useAuthStore = create((set, get) => ({
     try {
       const { data, error } = await supabase
         .from('users')
-        .select('role, company_id')
+        .select('role, company_id, is_active')
         .eq('id', userId)
         .single()
       
       if (error) throw error
+
+      // If the user has been soft-deleted (deactivated), force sign-out
+      if (!data || data.is_active === false) {
+        console.warn('Account deactivated — signing out.')
+        await supabase.auth.signOut()
+        set({ user: null, role: null, companyId: null, isLoading: false })
+        window.location.href = '/login'
+        return
+      }
       
       set({ 
         user: { id: userId }, 
@@ -50,6 +59,8 @@ export const useAuthStore = create((set, get) => ({
       })
     } catch (err) {
       console.error('Error fetching user profile:', err)
+      // If we can't find the user profile at all, sign them out to be safe
+      await supabase.auth.signOut()
       set({ user: null, role: null, companyId: null, isLoading: false })
     }
   },

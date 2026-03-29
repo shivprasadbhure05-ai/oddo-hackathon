@@ -1,0 +1,31 @@
+
+Madhur : A&uy$IMfnEL@
+yashraj : FeYejZV*^$Rq
+Prajwal : RlbJgityFyf8
+Aditya :  5WPq%!$Z4slE
+
+
+
+
+
+
+
+# Navigate to backend
+cd backend
+
+# Activate virtual environment (Windows)
+.\venv\Scripts\activate
+
+# Start the FastAPI server
+uvicorn main:app --reload
+
+
+# Navigate to frontend
+cd frontend
+
+# Install dependencies (if you haven't already)
+npm install
+
+# Start the frontend server
+npm run dev
+

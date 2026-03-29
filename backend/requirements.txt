@@ -3,11 +3,12 @@ uvicorn
 supabase
 python-dotenv
 httpx
-pydantic
+pydantic[email]
 pydantic-settings
 resend
 sendgrid
 python-multipart
-jose
+python-jose[cryptography]
+PyJWT
 passlib
 bcrypt

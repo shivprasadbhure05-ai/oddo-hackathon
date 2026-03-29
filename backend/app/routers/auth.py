@@ -86,9 +86,7 @@ async def forgot_password(request: ForgotPasswordRequest):
         chars = string.ascii_letters + string.digits + "!@#$%^&*"
         temp_pwd = ''.join(secrets.choice(chars) for _ in range(12))
         
-        # We need to find the user id by email first
-        # But auth admin can update user by id.
-        users_resp = supabase_admin.auth.admin.list_users() # Not efficient for prod, but we can query public.users
+        # Find the user id by email from public.users
         users = supabase_admin.table("users").select("id").eq("email", request.email).execute()
         
         if not users.data:

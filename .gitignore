@@ -1,0 +1,21 @@
+# Environment variables (CRITICAL)
+.env
+.env.*
+!.env.example
+
+# Node (frontend)
+node_modules/
+dist/
+build/
+
+# Python (backend)
+__pycache__/
+*.pyc
+venv/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

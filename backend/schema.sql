@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS users (
     company_id uuid        NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
     name       text        NOT NULL,
     email      text        NOT NULL,
-    role       text        NOT NULL CHECK (role IN ('admin', 'manager', 'employee')),
+    role       text        NOT NULL CHECK (role IN ('admin', 'manager', 'employee', 'cfo')),
     manager_id uuid        REFERENCES users(id) ON DELETE SET NULL,
     is_active  bool        DEFAULT true,
     created_at timestamptz DEFAULT now()

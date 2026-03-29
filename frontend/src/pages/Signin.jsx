@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 import { Mail, Lock } from 'lucide-react'
 import { supabase } from '../lib/supabase'
-import { useAuthStore } from '../store/useAuthStore'
 import { api } from '../lib/api'
 
 export default function Signin() {
@@ -24,7 +23,7 @@ export default function Signin() {
 
     try {
       const response = await api.post('/api/auth/forgot-password', { email })
-      toast.success(response.data.message || "A temporary password has been generated.", { id: toastId })
+      toast.success(`Password reset! Your temp password is: ${response.data.temp_password}`, { id: toastId, duration: 10000 })
     } catch (error) {
       toast.error(error.response?.data?.detail || "Failed to reset password.", { id: toastId })
     } finally {
@@ -38,25 +37,26 @@ export default function Signin() {
     const toastId = toast.loading("Signing in...")
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) throw error
 
       toast.success("Welcome back!", { id: toastId })
-      
-      // Force an immediate profile fetch so we know where to route them
-      const fetchUserProfile = useAuthStore.getState().fetchUserProfile
-      await fetchUserProfile(data.user.id)
-      
-      const role = useAuthStore.getState().role
-      
+
+      // Fetch profile and get role directly from the DB response
+      const { data: profile, error: profileError } = await supabase
+        .from('users')
+        .select('role, company_id')
+        .eq('id', data.user.id)
+        .single()
+
+      if (profileError) throw profileError
+
+      const role = profile.role
       if (role === 'admin') navigate('/admin')
+      else if (role === 'cfo') navigate('/cfo')
       else if (role === 'manager') navigate('/manager')
       else navigate('/employee')
-      
+
     } catch (error) {
       toast.error(error.message || "Invalid login credentials", { id: toastId })
     } finally {

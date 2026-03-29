@@ -1,0 +1,25 @@
+=== ALL USERS ===
+{'id': '7718ae68-bdf8-43eb-819a-beacfa9e2a8d', 'name': 'Test Admin', 'email': 'testadmin@testcompany.com', 'role': 'admin', 'manager_id': None, 'is_active': True}
+{'id': 'b8cbff68-4456-4960-a76a-0d906fcb5292', 'name': 'Shivprasad Bhure', 'email': 'bhureprasad6@gmail.com', 'role': 'admin', 'manager_id': None, 'is_active': True}
+{'id': '5668af98-60d6-4dc2-8c19-a715243ea8e4', 'name': 'madhur', 'email': 'deleted_5668af98@odoo.local', 'role': 'manager', 'manager_id': None, 'is_active': False}
+{'id': '8a079f74-0fbd-4dd9-8ac5-30cb9124f2ea', 'name': 'mangesh pusjari', 'email': 'deleted_8a079f74@odoo.local', 'role': 'employee', 'manager_id': None, 'is_active': False}
+{'id': '304f6e2a-8b7b-4fe1-ae1e-d518e44fe8be', 'name': 'prajwal ', 'email': 'deleted_304f6e2a@odoo.local', 'role': 'employee', 'manager_id': None, 'is_active': False}
+{'id': 'dbfec776-dded-4a0f-8814-23b462d546b4', 'name': 'madhur', 'email': 'madhur.biradar24@vit.edu', 'role': 'manager', 'manager_id': None, 'is_active': True}
+{'id': '8d520506-2ba1-40a9-8439-619b996ee86e', 'name': 'prajwal', 'email': 'deleted_8d520506@odoo.local', 'role': 'employee', 'manager_id': None, 'is_active': False}
+{'id': '3283c20f-2606-4143-8678-1ae2f591bbf0', 'name': 'yashraj', 'email': 'yashraj.bharti24@vit.edu', 'role': 'employee', 'manager_id': 'dbfec776-dded-4a0f-8814-23b462d546b4', 'is_active': True}
+{'id': '7624edc0-fddf-4d3e-a0e6-c4a04b26ca15', 'name': 'prajwal', 'email': 'prajwal.bhosale24@vit.edu', 'role': 'employee', 'manager_id': 'dbfec776-dded-4a0f-8814-23b462d546b4', 'is_active': True}
+{'id': 'c512771d-c77c-471c-835d-5fbe5bc8f060', 'name': 'aditya', 'email': 'aditya.birajdar24@vit.edu', 'role': 'employee', 'manager_id': 'dbfec776-dded-4a0f-8814-23b462d546b4', 'is_active': True}
+
+=== ALL EXPENSES ===
+{'id': '683a90a0-95c0-46b4-bd1b-d44fe3dff3b0', 'employee_id': '8a079f74-0fbd-4dd9-8ac5-30cb9124f2ea', 'status': 'pending', 'amount': 14.0}
+{'id': 'ba2277aa-4c59-4a28-9eb7-1645a86ebbdf', 'employee_id': '304f6e2a-8b7b-4fe1-ae1e-d518e44fe8be', 'status': 'pending', 'amount': 19.0}
+{'id': '310f073f-ec80-4dc8-85c2-d461e30ce3f5', 'employee_id': '304f6e2a-8b7b-4fe1-ae1e-d518e44fe8be', 'status': 'approved', 'amount': 15.0}
+{'id': '1d319903-f13e-4484-a9ff-2728e618cd32', 'employee_id': '7624edc0-fddf-4d3e-a0e6-c4a04b26ca15', 'status': 'pending', 'amount': 11.0}
+{'id': '752f8b12-4369-4b76-b532-7ab3c924e860', 'employee_id': '3283c20f-2606-4143-8678-1ae2f591bbf0', 'status': 'pending', 'amount': 40.0}
+{'id': '8c52e145-7af0-4f81-80c0-2dcbdab302f3', 'employee_id': 'c512771d-c77c-471c-835d-5fbe5bc8f060', 'status': 'pending', 'amount': 100.0}
+
+=== EXPENSE_APPROVALS ===
+{'id': '50595ab8-507b-42e4-91d6-55fa10498837', 'expense_id': '310f073f-ec80-4dc8-85c2-d461e30ce3f5', 'approver_id': '5668af98-60d6-4dc2-8c19-a715243ea8e4', 'status': 'approved'}
+
+=== USER_APPROVAL_RULES ===
+NO USER_APPROVAL_RULES - employees are using manager fallback

@@ -8,6 +8,7 @@ import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import AdminDashboard from './pages/AdminDashboard'
 import ManagerDashboard from './pages/ManagerDashboard'
+import CfoDashboard from './pages/CfoDashboard'
 import EmployeeDashboard from './pages/EmployeeDashboard'
 
 // Guards
@@ -37,7 +38,7 @@ export default function App() {
           path="/" 
           element={
             user ? (
-              <Navigate to={`/${role === 'admin' ? 'admin' : role === 'manager' ? 'manager' : 'employee'}`} replace />
+              <Navigate to={`/${role === 'admin' ? 'admin' : role === 'cfo' ? 'cfo' : role === 'manager' ? 'manager' : 'employee'}`} replace />
             ) : (
               <Navigate to="/login" replace />
             )
@@ -55,6 +56,10 @@ export default function App() {
 
           <Route element={<RoleProtectedRoute allowedRole="manager" />}>
             <Route path="/manager/*" element={<ManagerDashboard />} />
+          </Route>
+
+          <Route element={<RoleProtectedRoute allowedRole="cfo" />}>
+            <Route path="/cfo/*" element={<CfoDashboard />} />
           </Route>
 
           <Route element={<RoleProtectedRoute allowedRole="employee" />}>

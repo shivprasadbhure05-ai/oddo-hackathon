@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     SUPABASE_SERVICE_ROLE_KEY: str
     JWT_SECRET: str
     EXCHANGE_API_KEY: str = ""
+    OCR_SPACE_API_KEY: str = ""
 
 
 settings = Settings()
